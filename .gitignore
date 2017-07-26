@@ -28,3 +28,5 @@ stamp-h*
 ungifsicle-*.rpm
 ungifsicle-*.tar.gz
 compile
+makelib
+*.a

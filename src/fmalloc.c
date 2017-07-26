@@ -8,7 +8,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-extern const char* program_name;
+//extern const char* program_name;
 
 void* Gif_Realloc(void* p, size_t s, size_t n, const char* file, int line) {
     (void) file, (void) line;
@@ -18,12 +18,12 @@ void* Gif_Realloc(void* p, size_t s, size_t n, const char* file, int line) {
     } else if (s == 1 || n == 1 || s <= ((size_t) -1) / n) {
         p = realloc(p, s * n);
         if (!p) {
-            fprintf(stderr, "%s: Out of memory, giving up\n", program_name);
+//            fprintf(stderr, "%s: Out of memory, giving up\n", program_name);
             exit(1);
         }
         return p;
     } else {
-        fprintf(stderr, "%s: Out of memory, giving up (huge allocation)\n", program_name);
+//        fprintf(stderr, "%s: Out of memory, giving up (huge allocation)\n", program_name);
         exit(1);
         return (void*) 0;
     }

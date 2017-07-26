@@ -1077,6 +1077,27 @@ Gif_FullWriteFile(Gif_Stream *gfs, const Gif_CompressInfo *gcinfo,
 }
 
 
+int
+Gif_FullWriteRecord(Gif_Stream *gfs, const Gif_CompressInfo *gcinfo,
+		  Gif_Record *record)
+{
+    Gif_Writer grr;
+    int ok = gif_writer_init(&grr, NULL, gcinfo)
+               && write_gif(gfs, &grr);
+    int retflag = 0;
+    if(ok == 1) {
+        record->data = Gif_NewArray(char, grr.pos);
+        if(record->data){
+            memcpy(record->data, grr.v, grr.pos);
+            record->length = grr.pos;
+            retflag = 1;
+        }
+    }
+
+    gif_writer_cleanup(&grr);
+    return retflag;
+}
+
 Gif_Writer*
 Gif_IncrementalWriteFileInit(Gif_Stream* gfs, const Gif_CompressInfo* gcinfo,
                              FILE *f)

@@ -11,6 +11,7 @@
 #define LCDF_GIF_H
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <lcdf/inttypes.h>
 #ifdef __cplusplus
 extern "C" {
@@ -245,7 +246,7 @@ int             Gif_AddExtension(Gif_Stream* gfs, Gif_Image* gfi,
 /** READING AND WRITING **/
 
 struct Gif_Record {
-    const unsigned char *data;
+    unsigned char *data;
     uint32_t length;
 };
 
@@ -269,6 +270,8 @@ Gif_Stream*     Gif_FullReadRecord(const Gif_Record* record, int flags,
 int             Gif_WriteFile(Gif_Stream *gfs, FILE *f);
 int             Gif_FullWriteFile(Gif_Stream *gfs,
                                   const Gif_CompressInfo *gcinfo, FILE *f);
+int             Gif_FullWriteRecord(Gif_Stream *gfs, 
+                                const Gif_CompressInfo *gcinfo, Gif_Record *record);
 
 #define Gif_ReadFile(f)         Gif_FullReadFile((f),GIF_READ_UNCOMPRESSED,0,0)
 #define Gif_ReadRecord(r)       Gif_FullReadRecord((r),GIF_READ_UNCOMPRESSED,0,0)
